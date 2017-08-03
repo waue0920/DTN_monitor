@@ -17,6 +17,7 @@ DTN_only/
 # 1. Jupyterhub Environment Setting
 
 note : this scripts was tested on Ubuntu 14.04 upper
+note : dtnscript.sh and downloadncar.py need fill correct username/password information, contact us about the detail. 
 
 ## Update source
 sudo apt-get   update
