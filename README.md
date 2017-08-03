@@ -35,9 +35,10 @@ sudo  npm   install   -g  configurable-http-proxy
 
 ## Use pip3 install jupyterhub and notebook
 sudo   pip3   install   jupyterhub
-sudo   pip3   install   notebook
-sudo   pip3   install   paramiko
 
+sudo   pip3   install   notebook
+
+sudo   pip3   install   paramiko
 
 # 2. Install	Python library
 
