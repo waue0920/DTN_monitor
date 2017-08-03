@@ -1,20 +1,15 @@
 # DTN_monitor
 
 DTN_only/
-DTN_monitor.ipynb (Jupyter notebook)
-dtnmonitor.py (main entrance for jupyter UI. include download(), because it needs to show current frame)
-bandw.py (monitor graph)
-calldtnscript.py (call dtnscript.sh)
-dtnscript.sh (write dtn information to mongoDB)
-downloadncar.py (download example)
-monitor(CPU, mem, network, IO data generated from bandw.py)
-NOAA/ (download data will be saved here)
-  grib2	(original)
-
-
-
- 
-
+* DTN_monitor.ipynb (Jupyter notebook)
+* dtnmonitor.py (main entrance for jupyter UI. include download(), because it needs to show current frame)
+* bandw.py (monitor graph)
+* calldtnscript.py (call dtnscript.sh)
+* dtnscript.sh (write dtn information to mongoDB)
+* downloadncar.py (download example)
+* monitor(CPU, mem, network, IO data generated from bandw.py)
+* NOAA/ (download data will be saved here)
+  * grib2	(original)
 
  
 Environment Setting
