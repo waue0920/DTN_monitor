@@ -27,13 +27,13 @@ sudo  apt-get  -y  install  python-pip  python3-pip ansible
 ## Install libzmq3, python and python3 develop packages
 sudo  apt-get  -y install  python3-dev  python-dev libzmq3-dev
 
-## Instll require packages for jupyterhub
+## Instll nodejs package manager for next step
 sudo  apt-get -y  install   npm   nodejs-legacy
 
 ## Use npm install http proxy
 sudo  npm   install   -g  configurable-http-proxy
 
-## Use pip3 install jupyterhub and notebook
+## Use pip3 install jupyterhub and notebook 
 sudo   pip3   install   jupyterhub
 
 sudo   pip3   install   notebook
