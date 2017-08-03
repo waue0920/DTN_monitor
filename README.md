@@ -22,7 +22,7 @@ note : this scripts was tested on Ubuntu 14.04 upper
 sudo apt-get   update
 
 ## Install python-pip python3-pip and ansible
-sudo  apt-get  -y  install  python-pip  python3-pip ansible
+sudo  apt-get  -y  install  python-pip  python3-pip ansible git
 
 ## Install libzmq3, python and python3 develop packages
 sudo  apt-get  -y install  python3-dev  python-dev libzmq3-dev
@@ -65,10 +65,18 @@ sudo apt-get install pciutils
 # 3. Usage
 
 1.	Copy folder DTN_only to your home directory
+
+cd ~
+git clone https://github.com/waue0920/DTN_monitor.git
+
 2.	Start Jupyterhub
+
+sudo jupyterhub
+
 3.	Open web browser  http://<your IP>:8000/
-4.	Sign in 
-5.	Execute jupyter notebook step by step
+4.	Sign in as your user/passwd on linux server
+5.	Import DTN_monitor.ipynb 
+6. Execute jupyter notebook step by step 
 
 ![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/jupyter.png)
 
