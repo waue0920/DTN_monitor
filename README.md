@@ -65,13 +65,10 @@ sudo pip3 install pymongo
 sudo apt-get install pciutils
 
 * note : if your OS version = ubuntu 14.04, you need to follow next step to trouble shoot the graph error
-<code>
-add to .config/matplotlib/matplotlibrc line backend : Agg
 
-sudo apt-get install libfreetype6-dev
-
-sudo pip3 install --upgrade matplotlib
-</code>
+>add to .config/matplotlib/matplotlibrc line backend : Agg
+>sudo apt-get install libfreetype6-dev
+>sudo pip3 install --upgrade matplotlib
 
 # 3. Usage
 
