@@ -64,6 +64,13 @@ sudo pip3 install pymongo
 
 sudo apt-get install pciutils
 
+* note : if your OS version = ubuntu 14.04, you need to follow next step to trouble shoot the graph error
+<code>
+add to .config/matplotlib/matplotlibrc line backend : Agg
+sudo apt-get install libfreetype6-dev
+sudo pip3 install --upgrade matplotlib
+</code>
+
 # 3. Usage
 
 1.	Copy folder DTN_only to your home directory
