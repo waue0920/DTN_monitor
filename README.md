@@ -66,8 +66,13 @@ sudo apt-get install pciutils
 
 * note : if your OS version = ubuntu 14.04, you need to follow next step to trouble shoot the graph error
 
->add to .config/matplotlib/matplotlibrc line backend : Agg
+>add to .config/matplotlib/matplotlibrc line 
+<code>
+ backend : Agg
+</code>
+ 
 >sudo apt-get install libfreetype6-dev
+
 >sudo pip3 install --upgrade matplotlib
 
 # 3. Usage
