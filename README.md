@@ -63,8 +63,8 @@ sudo pip3 install pymongo
 *	lspci
 
 sudo apt-get install pciutils
-
-* note : if your OS version = ubuntu 14.04, you need to follow next step to trouble shoot the graph error
+## note : trouble shooting for ubuntu 14.04
+* if your OS version =< ubuntu 14.04, you need to follow next step to trouble shoot the graph error
 
 >add to .config/matplotlib/matplotlibrc line 
 <code>
