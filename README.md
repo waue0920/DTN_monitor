@@ -12,9 +12,12 @@ DTN_only/
   * grib2	(original)
 
 ![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/archi.png)
- 
+
+
 # 1. Jupyterhub Environment Setting
- 
+
+note : this scripts was tested on Ubuntu 14.04 upper
+
 ## Update source
 sudo apt-get   update
 
