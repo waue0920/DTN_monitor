@@ -11,6 +11,7 @@ DTN_only/
 * NOAA/ (download data will be saved here)
   * grib2	(original)
 
+![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/archi.png)
  
 # 1. Jupyterhub Environment Setting
  
@@ -64,7 +65,9 @@ sudo apt-get install pciutils
 3.	Open web browser  http://<your IP>:8000/
 4.	Sign in 
 5.	Execute jupyter notebook step by step
- 
+
+![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/jupyter.png)
+
 ## Author Information: 
 Peggy Lu (peggylu@narlabs.org.tw)
 
