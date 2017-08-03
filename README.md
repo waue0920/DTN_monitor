@@ -12,40 +12,41 @@ DTN_only/
   * grib2	(original)
 
  
-Environment Setting
-•	Jupyterhub
-# Update source
+# Environment Setting
+* Jupyterhub
+
+## Update source
 sudo apt-get   update
 
-# Install python-pip python3-pip and ansible
+## Install python-pip python3-pip and ansible
 sudo  apt-get  -y  install  python-pip  python3-pip ansible
 
-# Install libzmq3, python and python3 develop packages
+## Install libzmq3, python and python3 develop packages
 sudo  apt-get  -y install  python3-dev  python-dev libzmq3-dev
 
-# Instll require packages for jupyterhub
+## Instll require packages for jupyterhub
 sudo  apt-get -y  install   npm   nodejs-legacy
 
-# Use npm install http proxy
+## Use npm install http proxy
 sudo  npm   install   -g  configurable-http-proxy
 
-# Use pip3 install jupyterhub and notebook
+## Use pip3 install jupyterhub and notebook
 sudo   pip3   install   jupyterhub
 sudo   pip3   install   notebook
 sudo   pip3   install   paramiko
 
 
-•	Python library
-o	matplotlib: sudo apt-get install python3-matplotlib
-o	psutil (for monitor data): sudo pip3 install psutil
-o	numpy: sudo pip3 install numpy
-•	pymongo
+#	Python library
+*	matplotlib: sudo apt-get install python3-matplotlib
+*	psutil (for monitor data): sudo pip3 install psutil
+*	numpy: sudo pip3 install numpy
+*	pymongo
 sudo pip3 install pymongo
-•	lspci
+*	lspci
 sudo apt-get install pciutils
 
  
-Usage
+# Usage
 
 1.	Copy folder DTN_only to your home directory
 2.	Start Jupyterhub
@@ -55,5 +56,6 @@ Usage
 
  
  
-Author Information: Peggy Lu (peggylu@narlabs.org.tw)
+## Author Information: 
+Peggy Lu (peggylu@narlabs.org.tw)
 
