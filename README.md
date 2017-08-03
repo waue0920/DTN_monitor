@@ -12,9 +12,8 @@ DTN_only/
   * grib2	(original)
 
  
-# Environment Setting
-* Jupyterhub
-
+# 1. Jupyterhub Environment Setting
+ 
 ## Update source
 sudo apt-get   update
 
@@ -36,25 +35,30 @@ sudo   pip3   install   notebook
 sudo   pip3   install   paramiko
 
 
-#	Python library
-*	matplotlib: sudo apt-get install python3-matplotlib
-*	psutil (for monitor data): sudo pip3 install psutil
-*	numpy: sudo pip3 install numpy
+# 2. Install	Python library
+
+*	matplotlib: 
+sudo apt-get install python3-matplotlib
+
+*	psutil (for monitor data): 
+sudo pip3 install psutil
+
+*	numpy: 
+sudo pip3 install numpy
+
 *	pymongo
 sudo pip3 install pymongo
+
 *	lspci
 sudo apt-get install pciutils
 
- 
-# Usage
+# 3. Usage
 
 1.	Copy folder DTN_only to your home directory
 2.	Start Jupyterhub
 3.	Open web browser  http://<your IP>:8000/
 4.	Sign in 
 5.	Execute jupyter notebook step by step
-
- 
  
 ## Author Information: 
 Peggy Lu (peggylu@narlabs.org.tw)
