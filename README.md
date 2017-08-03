@@ -38,18 +38,23 @@ sudo   pip3   install   paramiko
 # 2. Install	Python library
 
 *	matplotlib: 
+
 sudo apt-get install python3-matplotlib
 
 *	psutil (for monitor data): 
+
 sudo pip3 install psutil
 
 *	numpy: 
+
 sudo pip3 install numpy
 
 *	pymongo
+
 sudo pip3 install pymongo
 
 *	lspci
+
 sudo apt-get install pciutils
 
 # 3. Usage
