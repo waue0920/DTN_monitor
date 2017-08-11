@@ -105,8 +105,11 @@ class Graph(threading.Thread):
 def monitorit(func):
     def my_wrap(*args, **kwargs):
  #       procmongo = Process(target=dtn2db)
-        procmongo = subprocess.Popen(["python3","calldtnscript.py"], stdin=subprocess.PIPE)
-        mode=args[1]
+        procmongo = subprocess.Popen(["python3","calldtnscript_v2.py"], stdin=subprocess.PIPE)
+        if args is None:
+            mode=1
+        else:
+            mode=args[1]
 #        procmongo.start()
  #       procmongo.join()
         proc = subprocess.Popen(["python3", "bandw.py", str(mode)], stdout=subprocess.PIPE)
@@ -138,3 +141,14 @@ def exec_command(cmd,mode):
             sys.exc_info() == (None, None, None)
 #            sys.exc_clear()
 
+@monitorit
+def start_monitor(cmd,  mode):
+#    mode=input_mode
+        try:
+        #download(date,time,folder)
+        #    subprocess.call(cmd)
+            print (cmd)
+        except KeyboardInterrupt:
+            print ('Interrupted')
+            sys.exc_info() == (None, None, None)
+#            sys.exc_clear()

@@ -68,9 +68,9 @@ def main(argv):
     date=argv[0] #"20170428" #enter dates between previous 2 years
     simu_starttime=argv[1]#"00"  #00 06 12 18
     folder=argv[2]
-   
-    username = "your_account@email.edu"
-    passwd="register_passwd"
+
+    username = "peggy.lu@northwestern.edu"
+    passwd="1234"   
 
     authenticate(username,passwd)
 
