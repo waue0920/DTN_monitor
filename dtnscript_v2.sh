@@ -4,7 +4,7 @@ bin=`dirname "$0"`
 bin=`cd "$bin"; pwd`
 cd $bin;
 
-./config.sh
+source ./config.sh
 
 user="_temp_"
 timestamp=`date +%s`
