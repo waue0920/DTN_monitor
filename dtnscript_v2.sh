@@ -61,6 +61,9 @@ getOthers()
   CPUArr[mlx5_core_verion]=`modinfo mlx5_core |grep ^version | awk {'print $2'}` #0809
   CPUArr[irq_balance_status]=`service irqbalance status | awk {'print $2'}`   # 0809
   CPUArr[ethernet_nic]=`lspci |grep Ethernet` #0809
+  CPUArr[time_start]=$timestamp #0813
+  CPUArr[time_current]=`date +%s` #0813
+  CPUArr[time_rcurrent]=`date +%Y%m%d_%H%M%S` #0813
 }
 
 
