@@ -1,13 +1,12 @@
 #!/bin/bash
 
-user="_tmp_script"
+user="peggy"
 timestamp=`date +%s`
 dbname="test"
-mongoUser="account"
-mongoPwd="xxxxxx"
-mongoIP="x.x.x.x"
+#mongoUser=""
+#mongoPwd=""
+#mongoIP=""
 collections="dtnInfo"
-
 
 declare -A CPUArr
 getCPUInfo()
