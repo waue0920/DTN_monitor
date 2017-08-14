@@ -1,11 +1,17 @@
 #!/bin/bash
 
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+cd $bin;
+
+source ./config.sh
+
 user="_temp_"
 timestamp=`date +%s`
 dbname="test"
-mongoUser="peggy"
-mongoPwd="1234"
-mongoIP="165.124.33.147"
+#mongoUser="" #migrate to config.sh
+#mongoPwd="" #migrate to config.sh
+#mongoIP=""  #migrate to config.sh
 collections="dtnInfo"
 
 declare -A CPUArr

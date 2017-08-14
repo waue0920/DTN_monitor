@@ -1,0 +1,3 @@
+mongoUser="_UserName_"
+mongoPwd="_Password_"
+mongoIP="165.124.33.147" # the IP of central server mongo db 
