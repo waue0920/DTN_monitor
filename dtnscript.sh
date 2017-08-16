@@ -1,6 +1,12 @@
 #!/bin/bash
 
-user="peggy"
+bin=`dirname "$0"`
+bin=`cd "$bin"; pwd`
+cd $bin;
+
+source ./config.sh
+
+user="_temp_"
 timestamp=`date +%s`
 dbname="test"
 #mongoUser=""
