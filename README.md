@@ -83,17 +83,18 @@ sudo apt-get install pciutils
 
 > git clone https://github.com/waue0920/DTN_monitor.git
 
-> modify __config.sh__  to config.sh as
+2. modify __config.sh__  to config.sh as
+
 ![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p1.png)
 
-2.	Start Jupyterhub
+3.	Start Jupyterhub
 
 > sudo jupyterhub
 
-3.	Open web browser  http://<your IP>:8000/
-4.	Sign in as your user/passwd on linux server
-5.	Import DTN_monitor.ipynb 
-6. Execute jupyter notebook step by step 
+4.	Open web browser  http://<your IP>:8000/
+5.	Sign in as your user/passwd on linux server
+6.	Import DTN_monitor.ipynb 
+7. Execute jupyter notebook step by step 
 
 ![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p2.png)
 ![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p3.png)
