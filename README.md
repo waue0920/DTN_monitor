@@ -87,6 +87,8 @@ sudo apt-get install pciutils
 
 ![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p1.png)
 
+* (let us know if you what transmit data to our mongodb server) 
+
 3.	Start Jupyterhub
 
 > sudo jupyterhub
@@ -102,4 +104,4 @@ sudo apt-get install pciutils
 
 ## Author Information: 
 Peggy Lu (peggylu@narlabs.org.tw)
-
+weiyu Chen(wychen@narlabs.org.tw)
