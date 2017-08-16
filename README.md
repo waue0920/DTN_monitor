@@ -83,6 +83,9 @@ sudo apt-get install pciutils
 
 > git clone https://github.com/waue0920/DTN_monitor.git
 
+> modify __config.sh__  to config.sh as
+![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p1.png)
+
 2.	Start Jupyterhub
 
 > sudo jupyterhub
