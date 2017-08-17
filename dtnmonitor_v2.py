@@ -9,6 +9,9 @@ import threading
 from IPython import display
 import csv
 from multiprocessing import Process
+import errno
+from os import path
+
 class Graph(threading.Thread):
     def __init__(self, *args, **keywords):
         threading.Thread.__init__(self, *args, **keywords)
@@ -100,6 +103,11 @@ class Graph(threading.Thread):
         self.killed = True
 
 
+def exec_sysout(command):
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    while process.poll() is None:
+        nextline = process.stdout.readline()
+        sys.stdout.write(nextline)
 
 
 def monitorit(func):
@@ -125,6 +133,7 @@ def monitorit(func):
         thread.kill()
 
     return my_wrap
+
 
 @monitorit
 def exec_command(cmd,mode):
