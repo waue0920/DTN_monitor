@@ -6,6 +6,7 @@ import subprocess
 import numpy as np
 import matplotlib.pyplot as plt
 import threading
+import datetime
 from IPython import display
 import csv
 from multiprocessing import Process
@@ -103,11 +104,26 @@ class Graph(threading.Thread):
         self.killed = True
 
 
+def exec_print(command):
+    proc = subprocess.Popen([command], stdout=subprocess.PIPE, shell=True)
+    (out, err) = proc.communicate()
+    print("out:", out)
+
 def exec_sysout(command):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     while process.poll() is None:
         nextline = process.stdout.readline()
         sys.stdout.write(nextline)
+
+def exec_print(command):
+  with open(logfile, 'a') as f:
+      process = subprocess.Popen([command], stdout=subprocess.PIPE,stderr=subprocess.STDOUT, shell=True)
+      f.write("\n# command: " + command + "(time:" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ")\n")
+      for line in iter(process.stdout.readline, b''):
+          # system print
+          sys.stdout.write(line)
+          # log
+          f.write(line.decode(sys.stdout.encoding) )
 
 
 def monitorit(func):
@@ -133,6 +149,16 @@ def monitorit(func):
         thread.kill()
 
     return my_wrap
+
+def exec_print(command):
+  with open(logfile, 'a') as f:
+      process = subprocess.Popen([command], stdout=subprocess.PIPE,stderr=subprocess.STDOUT, shell=True)
+      f.write("\n# command: " + command + "(time:" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ")\n")
+      for line in iter(process.stdout.readline, b''):
+          # system print
+          sys.stdout.write(line)
+          # log
+          f.write(line.decode(sys.stdout.encoding) )
 
 
 @monitorit
