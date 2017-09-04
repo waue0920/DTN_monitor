@@ -64,6 +64,19 @@ getOthers()
   CPUArr[time_start]=$timestamp #0813
   CPUArr[time_current]=`date +%s` #0813
   CPUArr[time_rcurrent]=`date +%Y%m%d_%H%M%S` #0813
+
+  
+  CPUArr[1_sysctl]=`sysctl -a |grep 'net.core\|net.ipv4.tcp'` #0904
+  CPUArr[2_mlnx_tune]=`ls /tmp/mlnx_tune_*.log` #0904
+  CPUArr[3_set_irq_affinity]="no check command" #0904
+  CPUArr[4_pcie_max_read]=`lspci -s 04:00.0 -vvv | grep MaxReadReq` #0904
+  CPUArr[5_txqueuelen]=`ifconfig |grep txqueuelen` #0904
+  CPUArr[6_cpu_gonvener_performance]=`cpupower frequency-info -g` #0904
+  CPUArr[7_turnoff_irq]=`service irqbalance status` #0904
+  CPUArr[7_turnoff_tuned]=`service tuned status` #0904
+
+
+
 }
 
 
