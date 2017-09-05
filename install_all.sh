@@ -23,10 +23,12 @@ sed -i '365i  nuttcp          5000/tcp \nnuttcp-data     5001/tcp \nnuttcp6     
 #  dtn_monitor
 sudo su - 
 yum update
-yum -y install python-pip python3-pip ansible git python3-dev python-dev libzmq3-dev npm nodejs-legacy python3-matplotlib pciutils libfreetype6-dev
+yum install https://kojipkgs.fedoraproject.org//packages/http-parser/2.7.1/3.el7/x86_64/http-parser-2.7.1-3.el7.x86_64.rpm  # to fix node6js
+yum -y install python-pip ansible git  python-dev libzmq3-dev npm nodejs-legacy  pciutils libfreetype6-dev python34-pip python34-devel 
 npm install -g configurable-http-proxy
-pip3 install jupyterhub notebook paramiko psutil numpy pymongo
-pip3 install --upgrade matplotlib
+pip3 install jupyterhub notebook paramiko psutil numpy pymongo matplotlib
+pip3 install --upgrade matplotlib pip
+
 
 
 
