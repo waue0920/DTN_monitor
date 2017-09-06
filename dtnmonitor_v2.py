@@ -103,6 +103,8 @@ class Graph(threading.Thread):
     def kill(self):
         self.killed = True
 
+def exec_run(command):
+    subprocess.Popen([command], stdout=subprocess.PIPE, shell=True)
 
 def exec_print(command):
     proc = subprocess.Popen([command], stdout=subprocess.PIPE, shell=True)
@@ -115,15 +117,15 @@ def exec_sysout(command):
         nextline = process.stdout.readline()
         sys.stdout.write(nextline)
 
-def exec_print(command):
-  with open(logfile, 'a') as f:
-      process = subprocess.Popen([command], stdout=subprocess.PIPE,stderr=subprocess.STDOUT, shell=True)
-      f.write("\n# command: " + command + "(time:" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ")\n")
-      for line in iter(process.stdout.readline, b''):
-          # system print
-          sys.stdout.write(line)
-          # log
-          f.write(line.decode(sys.stdout.encoding) )
+#def exec_print_log(command):
+#  with open(logfile, 'a') as f:
+#      process = subprocess.Popen([command], stdout=subprocess.PIPE,stderr=subprocess.STDOUT, shell=True)
+#      f.write("\n# command: " + command + "(time:" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ")\n")
+#      for line in iter(process.stdout.readline, b''):
+#          # system print
+#          sys.stdout.write(line)
+#          # log
+#          f.write(line.decode(sys.stdout.encoding) )
 
 
 def monitorit(func):
@@ -149,17 +151,6 @@ def monitorit(func):
         thread.kill()
 
     return my_wrap
-
-def exec_print(command):
-  with open(logfile, 'a') as f:
-      process = subprocess.Popen([command], stdout=subprocess.PIPE,stderr=subprocess.STDOUT, shell=True)
-      f.write("\n# command: " + command + "(time:" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ")\n")
-      for line in iter(process.stdout.readline, b''):
-          # system print
-          sys.stdout.write(line)
-          # log
-          f.write(line.decode(sys.stdout.encoding) )
-
 
 @monitorit
 def exec_command(cmd,mode):
