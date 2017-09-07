@@ -13,6 +13,7 @@ from multiprocessing import Process
 import errno
 from os import path
 
+interface=None
 class Graph(threading.Thread):
     def __init__(self, *args, **keywords):
         threading.Thread.__init__(self, *args, **keywords)
@@ -103,20 +104,24 @@ class Graph(threading.Thread):
     def kill(self):
         self.killed = True
 
+## just exec method
 def exec_run(command):
     subprocess.Popen([command], stdout=subprocess.PIPE, shell=True)
 
-def exec_print(command):
-    proc = subprocess.Popen([command], stdout=subprocess.PIPE, shell=True)
-    (out, err) = proc.communicate()
-    print("out:", out)
+## bad print method, just work but one line
+#def exec_print(command):
+#    proc = subprocess.Popen([command], stdout=subprocess.PIPE, shell=True)
+#    (out, err) = proc.communicate()
+#    print("out:", out)
 
+## good print method, 
 def exec_sysout(command):
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     while process.poll() is None:
         nextline = process.stdout.readline()
         sys.stdout.write(nextline)
 
+## good print method, be note that logfile must set
 #def exec_print_log(command):
 #  with open(logfile, 'a') as f:
 #      process = subprocess.Popen([command], stdout=subprocess.PIPE,stderr=subprocess.STDOUT, shell=True)
@@ -138,7 +143,7 @@ def monitorit(func):
             mode=args[1]
 #        procmongo.start()
  #       procmongo.join()
-        proc = subprocess.Popen(["python3", "bandw.py", str(mode)], stdout=subprocess.PIPE)
+        proc = subprocess.Popen(["python3", "bandw.py", str(mode), interface], stdout=subprocess.PIPE)
         time.sleep(1)
 
         thread = Graph()
