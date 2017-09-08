@@ -13,7 +13,7 @@ from multiprocessing import Process
 import errno
 from os import path
 
-interface=None
+interface="all"
 class Graph(threading.Thread):
     def __init__(self, *args, **keywords):
         threading.Thread.__init__(self, *args, **keywords)
