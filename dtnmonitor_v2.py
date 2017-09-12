@@ -66,13 +66,13 @@ class Graph(threading.Thread):
             ax1.grid(alpha=0.5)
             ax1.set_title("Network Performance")
             ax1.set_xlabel('Sec')
-            ax1.set_ylabel('Mb')
+            ax1.set_ylabel('MB')
 
             ax2.plot(((diskarr / 1024)), color="green")
             ax2.grid(alpha=0.5)
             ax2.set_title("DISK IO")
             ax2.set_xlabel('Sec')
-            ax2.set_ylabel('Mb')
+            ax2.set_ylabel('MB')
 
             ax3.plot(((cpuarr)))
             ax3.grid(alpha=0.5)
