@@ -13,7 +13,9 @@ from multiprocessing import Process
 import errno
 from os import path
 
-interface="all"
+interface = "all"
+
+
 class Graph(threading.Thread):
     def __init__(self, *args, **keywords):
         threading.Thread.__init__(self, *args, **keywords)
@@ -25,7 +27,7 @@ class Graph(threading.Thread):
         threading.Thread.start(self)
 
     def __run(self):
-#        global filename
+        #        global filename
         sys.settrace(self.globaltrace)
         self.__run_backup()
         self.run = self.__run_backup
@@ -39,13 +41,13 @@ class Graph(threading.Thread):
                 #    monitor_list.append(line.strip())
                 reader1, reader2 = itertools.tee(csv.reader(f, delimiter=","))
                 for row in reader2:
-                    if(len(next(reader1)) != 4):
+                    if (len(next(reader1)) != 4):
                         continue
 
-#                for row in csv.DictReader(f, ['network', 'diskio', 'cpu', 'mem']):
- #                   if(len(row) !=4):
-  #                      continue
-                    
+                    #                for row in csv.DictReader(f, ['network', 'diskio', 'cpu', 'mem']):
+                    #                   if(len(row) !=4):
+                    #                      continue
+
                     network_monitor_list.append(row[0].strip())
                     diskio_monitor_list.append(row[1].strip())
                     cup_monitor_list.append(row[2].strip())
@@ -59,7 +61,7 @@ class Graph(threading.Thread):
             # f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex='col', sharey='row')
             f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex='col')
             f.set_size_inches(15, 10)
-#            f.suptitle(filename, fontsize=30)
+            #            f.suptitle(filename, fontsize=30)
             ax1.plot(((netarr / 1024)))
             ax1.grid(alpha=0.5)
             ax1.set_title("Network Performance")
@@ -104,12 +106,14 @@ class Graph(threading.Thread):
     def kill(self):
         self.killed = True
 
+
 ## just exec method
 def exec_run(command):
     subprocess.Popen([command], stdout=subprocess.PIPE, shell=True)
 
+
 ## bad print method, just work but one line
-#def exec_print(command):
+# def exec_print(command):
 #    proc = subprocess.Popen([command], stdout=subprocess.PIPE, shell=True)
 #    (out, err) = proc.communicate()
 #    print("out:", out)
@@ -121,8 +125,9 @@ def exec_sysout(command):
         nextline = process.stdout.readline()
         sys.stdout.write(nextline)
 
+
 ## good print method, be note that logfile must set
-#def exec_print_log(command):
+# def exec_print_log(command):
 #  with open(logfile, 'a') as f:
 #      process = subprocess.Popen([command], stdout=subprocess.PIPE,stderr=subprocess.STDOUT, shell=True)
 #      f.write("\n# command: " + command + "(time:" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ")\n")
@@ -135,14 +140,14 @@ def exec_sysout(command):
 
 def monitorit(func):
     def my_wrap(*args, **kwargs):
- #       procmongo = Process(target=dtn2db)
-        procmongo = subprocess.Popen(["python3","calldtnscript_v2.py"], stdin=subprocess.PIPE)
+        #       procmongo = Process(target=dtn2db)
+        procmongo = subprocess.Popen(["python3", "calldtnscript_v2.py"], stdin=subprocess.PIPE)
         if args is None:
-            mode=1
+            mode = 1
         else:
-            mode=args[1]
-#        procmongo.start()
- #       procmongo.join()
+            mode = args[1]
+        #        procmongo.start()
+        #       procmongo.join()
         proc = subprocess.Popen(["python3", "bandw.py", str(mode), interface], stdout=subprocess.PIPE)
         time.sleep(1)
 
@@ -157,29 +162,33 @@ def monitorit(func):
 
     return my_wrap
 
-@monitorit
-def exec_command(cmd,mode):
-#    mode=input_mode
-    cmd = cmd.split()
-    if cmd is not None:
-#    global filename
-    
-        try:
-        #download(date,time,folder)
-            subprocess.call(cmd)
-        except KeyboardInterrupt:
-            print ('Interrupted')
-            sys.exc_info() == (None, None, None)
-#            sys.exc_clear()
 
 @monitorit
-def start_monitor(cmd,  mode):
-#    mode=input_mode
+def exec_command(cmd, mode):
+    #    mode=input_mode
+    cmd = cmd.split()
+    if cmd is not None:
+        #    global filename
+
         try:
-        #download(date,time,folder)
-        #    subprocess.call(cmd)
-            print (cmd)
+            # download(date,time,folder)
+            subprocess.call(cmd)
         except KeyboardInterrupt:
-            print ('Interrupted')
+            print('Interrupted')
             sys.exc_info() == (None, None, None)
-#            sys.exc_clear()
+
+
+# sys.exc_clear()
+
+@monitorit
+def start_monitor(cmd, mode):
+    #    mode=input_mode
+    try:
+        # download(date,time,folder)
+        #    subprocess.call(cmd)
+        print(cmd)
+    except KeyboardInterrupt:
+        print('Interrupted')
+        sys.exc_info() == (None, None, None)
+
+# sys.exc_clear()

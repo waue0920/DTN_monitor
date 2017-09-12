@@ -9,6 +9,8 @@ import threading
 from IPython import display
 import csv
 from multiprocessing import Process
+
+
 class Graph(threading.Thread):
     def __init__(self, *args, **keywords):
         threading.Thread.__init__(self, *args, **keywords)
@@ -20,7 +22,7 @@ class Graph(threading.Thread):
         threading.Thread.start(self)
 
     def __run(self):
-#        global filename
+        #        global filename
         sys.settrace(self.globaltrace)
         self.__run_backup()
         self.run = self.__run_backup
@@ -34,13 +36,13 @@ class Graph(threading.Thread):
                 #    monitor_list.append(line.strip())
                 reader1, reader2 = itertools.tee(csv.reader(f, delimiter=","))
                 for row in reader2:
-                    if(len(next(reader1)) != 4):
+                    if (len(next(reader1)) != 4):
                         continue
 
-#                for row in csv.DictReader(f, ['network', 'diskio', 'cpu', 'mem']):
- #                   if(len(row) !=4):
-  #                      continue
-                    
+                    #                for row in csv.DictReader(f, ['network', 'diskio', 'cpu', 'mem']):
+                    #                   if(len(row) !=4):
+                    #                      continue
+
                     network_monitor_list.append(row[0].strip())
                     diskio_monitor_list.append(row[1].strip())
                     cup_monitor_list.append(row[2].strip())
@@ -54,7 +56,7 @@ class Graph(threading.Thread):
             # f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex='col', sharey='row')
             f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex='col')
             f.set_size_inches(15, 10)
-#            f.suptitle(filename, fontsize=30)
+            #            f.suptitle(filename, fontsize=30)
             ax1.plot(((netarr / 1024)))
             ax1.grid(alpha=0.5)
             ax1.set_title("Network Performance")
@@ -100,15 +102,13 @@ class Graph(threading.Thread):
         self.killed = True
 
 
-
-
 def monitorit(func):
     def my_wrap(*args, **kwargs):
- #       procmongo = Process(target=dtn2db)
-        procmongo = subprocess.Popen(["python3","calldtnscript.py"], stdin=subprocess.PIPE)
-        mode=args[1]
-#        procmongo.start()
- #       procmongo.join()
+        #       procmongo = Process(target=dtn2db)
+        procmongo = subprocess.Popen(["python3", "calldtnscript.py"], stdin=subprocess.PIPE)
+        mode = args[1]
+        #        procmongo.start()
+        #       procmongo.join()
         proc = subprocess.Popen(["python3", "bandw.py", str(mode)], stdout=subprocess.PIPE)
         time.sleep(1)
 
@@ -123,18 +123,19 @@ def monitorit(func):
 
     return my_wrap
 
+
 @monitorit
-def exec_command(cmd,mode):
-#    mode=input_mode
+def exec_command(cmd, mode):
+    #    mode=input_mode
     cmd = cmd.split()
     if cmd is not None:
-#    global filename
-    
+        #    global filename
+
         try:
-        #download(date,time,folder)
+            # download(date,time,folder)
             subprocess.call(cmd)
         except KeyboardInterrupt:
-            print ('Interrupted')
+            print('Interrupted')
             sys.exc_info() == (None, None, None)
-#            sys.exc_clear()
 
+# sys.exc_clear()
