@@ -15,6 +15,8 @@ mv nuttcp-8.1.4 /opt
 cd /opt/nuttcp-8.1.4
 make
 ln -sf  /opt/nuttcp-8.1.4/nuttcp-8.1.4 /usr/local/bin/nuttcp
+wget http://nuttcp.net/nuttcp/beta/nuttscp-2.3; chmod 755 nuttscp-2.3;cp nuttscp-2.3 /usr/local/bin/nuttscp
+ln -sf /opt/nuttcp-8.1.4 /opt/nuttcp
 mkdir /opt/nuttcp_workspace
 sed -i '365i  nuttcp          5000/tcp \nnuttcp-data     5001/tcp \nnuttcp6         5000/tcp \nnuttcp6-data    5001/tcp' /etc/services
 /usr/local/bin/nuttcp -S
@@ -29,7 +31,9 @@ npm install -g configurable-http-proxy
 pip3 install jupyterhub notebook paramiko psutil numpy pymongo matplotlib
 pip3 install --upgrade matplotlib pip
 
-
+## if jupyterhub conflict with SELinux
+# echo "c.PAMAuthenticator.open_sessions = False" >> ~/jupyterhub_config.py
+# jupyterhub -f ~/jupyterhub_config.py
 
 
 ## ubuntu 
@@ -44,10 +48,13 @@ mv nuttcp-8.1.4 /opt
 cd /opt/nuttcp-8.1.4
 make
 ln -sf  /opt/nuttcp-8.1.4/nuttcp-8.1.4 /usr/local/bin/nuttcp
+wget http://nuttcp.net/nuttcp/beta/nuttscp-2.3; chmod 755 nuttscp-2.3;cp nuttscp-2.3 /usr/local/bin/nuttscp
+ln -sf /opt/nuttcp-8.1.4 /opt/nuttcp
 mkdir /opt/nuttcp_workspace
-echo "nuttcp  stream  tcp     nowait  root    /usr/sbin/tcpd  /usr/local/bin/nuttcp -S" >> /etc/inetd.conf
 sed -i '365i  nuttcp          5000/tcp \n nuttcp-data     5001/tcp \n nuttcp6         5000/tcp \n nuttcp6-data    5001/tcp' /etc/services
-service openbsd-inetd restart
+#echo "nuttcp  stream  tcp     nowait  root    /usr/sbin/tcpd  /usr/local/bin/nuttcp -S" >> /etc/inetd.conf
+#service openbsd-inetd restart
+/usr/local/bin/nuttcp -S
 
 #  dtn_monitor
 
@@ -56,3 +63,9 @@ apt-get -y install python-pip python3-pip ansible git python3-dev python-dev lib
 npm install -g configurable-http-proxy
 pip3 install jupyterhub notebook paramiko psutil numpy pymongo
 pip3 install --upgrade matplotlib
+
+## don't forgot to assign the account/passwd in config.sh
+
+### optional
+
+sudo echo "sc17    ALL=NOPASSWD:/usr/sbin/mlnx_tune,/usr/sbin/setpci" >> /etc/sudoers
