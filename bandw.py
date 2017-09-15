@@ -5,9 +5,9 @@ import os, sys
 
 # mode 0:all mode1:100pt
 time_sleep = 3
-title="default"
+#title="default"
 current_time_stemp = time.time()
-def main(mode, interface):
+def main(mode, interface,title):
     #    mode=0
     print("mode=" + mode)
     max_graph_point = 100
@@ -15,6 +15,10 @@ def main(mode, interface):
     disk_old_value = 0
     data = []
     count = 0
+    try:
+        os.remove("monitor_"+title)
+    except OSError:
+        pass
 
     while True:
 
@@ -76,8 +80,8 @@ def convert_to_mbyte(value):
     return ("%0.3f" %(value / 1024. / 1024. / (time_sleep + duration)))
 
 
-os.system("rm -f monitor_"+title)
+#os.system("rm -f monitor_"+sys.argv[3])
 #file = open('monitor', 'w+')
 #file.close()
 
-main(sys.argv[1], sys.argv[2])
+main(sys.argv[1], sys.argv[2],sys.argv[3])

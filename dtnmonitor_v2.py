@@ -14,7 +14,7 @@ import errno
 from os import path
 
 interface = "all"
-
+title="default"
 sleepTime=3
 class Graph(threading.Thread):
     def __init__(self, *args, **keywords):
@@ -31,12 +31,13 @@ class Graph(threading.Thread):
         sys.settrace(self.globaltrace)
         self.__run_backup()
         self.run = self.__run_backup
+        
         while not self.killed:
             network_monitor_list = []
             diskio_monitor_list = []
             cup_monitor_list = []
             mem_monitor_list = []
-            with open('monitor') as f:
+            with open('monitor_'+title, 'r') as f:
                 # for line in f:
                 #    monitor_list.append(line.strip())
                 reader1, reader2 = itertools.tee(csv.reader(f, delimiter=","))
@@ -148,8 +149,8 @@ def monitorit(func):
             mode = args[1]
         #        procmongo.start()
         #       procmongo.join()
-        proc = subprocess.Popen(["python3", "bandw.py", str(mode), interface], stdout=subprocess.PIPE)
-        time.sleep(1)
+        proc = subprocess.Popen(["python3", "bandw.py", str(mode), interface,title], stdout=subprocess.PIPE)
+        time.sleep(4)
 
         thread = Graph()
         thread.daemon = True
