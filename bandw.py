@@ -4,6 +4,9 @@ import os, sys
 
 
 # mode 0:all mode1:100pt
+time_sleep = 3
+title="default"
+current_time_stemp = time.time()
 def main(mode, interface):
     #    mode=0
     print("mode=" + mode)
@@ -12,53 +15,69 @@ def main(mode, interface):
     disk_old_value = 0
     data = []
     count = 0
+
     while True:
+
         if interface == "all":
             new_value = psutil.net_io_counters().bytes_sent + psutil.net_io_counters().bytes_recv
+            #new_nrec_value = psutil.net_io_counters().bytes_recv
+            #new_nsnt_value = psutil.net_io_counters().bytes_sent
         else:
             new_value = psutil.net_io_counters(pernic=True)[interface].bytes_sent + psutil.net_io_counters(pernic=True)[
                 interface].bytes_recv
 
         disk_new_value = psutil.disk_io_counters().write_bytes + psutil.disk_io_counters().read_bytes
+
         if old_value:
-            net = send_stat(new_value - old_value)
-            disk = send_stat(disk_new_value - disk_old_value)
+
+            net = convert_to_mbit(new_value - old_value )
+            #net_rec = convert_to_mbit(new_nrec_value - old_nrec_value)
+            #net_send = convert_to_mbit(new_nsnt_value - old_nsnt_value)
+            disk = convert_to_mbyte(disk_new_value - disk_old_value)
             cpu = str(psutil.cpu_percent())
             mem = str(psutil.virtual_memory().percent)
             if count > 100 and int(mode) == 1:
-                with open('monitor', 'r') as fin:
+                with open("monitor_"+title, 'r') as fin:
                     oldfile = fin.read().splitlines(True)
                     fin.close()
-                with open('monitor', 'w') as fout:
+                with open("monitor_"+title, 'w') as fout:
                     fout.writelines(oldfile[1:])
                     fout.write(net + "," + disk + "," + cpu + "," + mem)
+                    #fout.write(net + "," + net_rec + "," + net_send + "," + disk + "," + cpu + "," + mem)
                     # fout.write(new_value+","+old_value+","+cpu+","+mem)
                     fout.write("\n")
                     fout.close()
             else:
-                with open('monitor', 'a+') as f:
+                with open("monitor_"+title, 'a+') as f:
                     f.seek(0, 2)
                     f.write(net + "," + disk + "," + cpu + "," + mem)
+                    #f.write(net + "," + net_rec + "," + net_send + "," + disk + "," + cpu + "," + mem)
                     # f.write(new_value+","+old_value+","+cpu+","+mem)
                     f.write("\n")
                     f.close()
         count = count + 1
         old_value = new_value
+        #old_nsnt_value = new_nsnt_value
+        #old_nrec_value = new_nrec_value
         disk_old_value = disk_new_value
 
-        time.sleep(1)
+        time.sleep(time_sleep)
+        current_time_stemp = time.time()
 
 
-def convert_to_gbit(value):
-    return value / 1024. / 1024. * 8 * 100
+def convert_to_mbit(value):
+    duration=time.time() - current_time_stemp
+    return ("%0.3f" %(value * 8 / 1024. / 1024. / (time_sleep + duration)))
 
 
-def send_stat(value):
-    return ("%0.3f" % convert_to_gbit(value))
+def convert_to_mbyte(value):
+    duration = time.time() - current_time_stemp
+    print("duration %r"%(duration))
+    return ("%0.3f" %(value / 1024. / 1024. / (time_sleep + duration)))
 
 
-os.system("rm -f monitor")
-file = open('monitor', 'w+')
-file.close()
+os.system("rm -f monitor_"+title)
+#file = open('monitor', 'w+')
+#file.close()
 
 main(sys.argv[1], sys.argv[2])

@@ -15,7 +15,7 @@ from os import path
 
 interface = "all"
 
-
+sleepTime=3
 class Graph(threading.Thread):
     def __init__(self, *args, **keywords):
         threading.Thread.__init__(self, *args, **keywords)
@@ -62,13 +62,13 @@ class Graph(threading.Thread):
             f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex='col')
             f.set_size_inches(15, 10)
             #            f.suptitle(filename, fontsize=30)
-            ax1.plot(((netarr / 1024)))
+            ax1.plot(((netarr )))
             ax1.grid(alpha=0.5)
             ax1.set_title("Network Performance")
             ax1.set_xlabel('Sec')
-            ax1.set_ylabel('MB')
+            ax1.set_ylabel('Mb')
 
-            ax2.plot(((diskarr / 1024)), color="green")
+            ax2.plot(((diskarr )), color="green")
             ax2.grid(alpha=0.5)
             ax2.set_title("DISK IO")
             ax2.set_xlabel('Sec')
@@ -89,7 +89,7 @@ class Graph(threading.Thread):
             display.display(plt.show())
             display.clear_output(wait=True)
             # plt.show()
-            time.sleep(0.5)
+            time.sleep(sleepTime)
 
     def globaltrace(self, frame, why, arg):
         if why == 'call':
