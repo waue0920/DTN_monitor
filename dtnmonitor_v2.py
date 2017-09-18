@@ -16,6 +16,7 @@ from os import path
 interface = "all"
 
 
+
 class Graph(threading.Thread):
     def __init__(self, *args, **keywords):
         threading.Thread.__init__(self, *args, **keywords)
@@ -191,4 +192,5 @@ def start_monitor(cmd, mode):
         print('Interrupted')
         sys.exc_info() == (None, None, None)
 
+## start_monitor not used
 # sys.exc_clear()
