@@ -21,8 +21,8 @@ def main(mode, interface):
 
         disk_new_value = psutil.disk_io_counters().write_bytes + psutil.disk_io_counters().read_bytes
         if old_value:
-            net = send_stat(new_value - old_value)
-            disk = send_stat(disk_new_value - disk_old_value)
+            net = convert_to_mbit(new_value - old_value)
+            disk = convert_to_mbyte(disk_new_value - disk_old_value)
             cpu = str(psutil.cpu_percent())
             mem = str(psutil.virtual_memory().percent)
             if count > 100 and int(mode) == 1:
@@ -48,9 +48,11 @@ def main(mode, interface):
 
         time.sleep(1)
 
+def convert_to_mbyte(value):
+    return ("%0.3f" % (value / 1024. / 1024.) )
 
-def convert_to_gbit(value):
-    return value / 1024. / 1024. * 8 * 100
+def convert_to_mbit(value):
+    return ("%0.3f" % (value * 8 / 1024. / 1024. ))
 
 
 def send_stat(value):
