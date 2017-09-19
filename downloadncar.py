@@ -69,8 +69,9 @@ def main(argv):
     simu_starttime=argv[1]#"00"  #00 06 12 18
     folder=argv[2]
 
-#    username = ""
-#    passwd=""   
+    username = "peggy@northwestern.edu"
+    passwd="1234"
+
 
     authenticate(username,passwd)
 
