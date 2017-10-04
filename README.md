@@ -100,11 +100,13 @@ sudo apt-get install pciutils
 
 4.	Open web browser  http://<your IP>:8000/
 5.	Sign in as your user/passwd on linux server
+![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p2.png)
 6.	Import DTN_monitor.ipynb 
+
+![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p3.png)
 7. Execute jupyter notebook step by step 
 
-![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p2.png)
-![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p3.png)
+
 ![architecture](https://raw.githubusercontent.com/waue0920/DTN_monitor/master/graph/p4.png)
 
 ## Author Information: 
