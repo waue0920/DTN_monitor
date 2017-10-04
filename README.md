@@ -1,6 +1,11 @@
 # DTN_monitor
 
-DTN_only/
+For More Detail, Please reference the gitbook:
+https://waue0920.gitbooks.io/dtn_monitor/content/
+
+
+
+DTN/
 * DTN_monitor.ipynb (Jupyter notebook)
 * dtnmonitor.py (main entrance for jupyter UI. include download(), because it needs to show current frame)
 * bandw.py (monitor graph)
