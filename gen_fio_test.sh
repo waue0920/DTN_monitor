@@ -6,12 +6,12 @@ cd $bin;
 NUM=$2
 USER=$(whoami)
 
-rm -f *.log
 
 function p_mkdir(){
-echo "Gen testDIR (!!! run it by sudoer !!!"
+echo "Gen testDIR (!!! run it by sudoer !!!)"
 #echo $'for i in $(seq 0 '$NUM') ;do sudo mkdir -p /data/disk${i}/'${USER}'; sudo chown '${USER}':'${USER}' /data/disk${i}/'${USER}' ; done'
-for i in $(seq 0 7) ;do sudo mkdir -p /data/disk${i}/${USER}; sudo chown ${USER}:${USER} /data/disk${i}/${USER} ; done
+for i in $(seq 0 $NUM) ;do sudo mkdir -p /data/disk${i}/${USER}; sudo chown ${USER}:${USER} /data/disk${i}/${USER} ; done
+ls -al /data/disk*/${USER}
 }
 
 function p_test_write(){
@@ -19,12 +19,14 @@ echo "Gen write:  (a few minutes....)"
 for i in $(seq 0 $NUM);do 
    xx="fio --thread --rw=write --norandommap --group_reporting --time_based  --randrepeat=0 --bs=1M --ioengine=posixaio --runtime=30 --iodepth=32 --name=drive0 --size=100G  --filename=/data/disk"$i"/${USER}/fftest"; 
    if [ $i != "$NUM" ]; then
+	echo "$xx >./w${i}.log 2>&1 &"
 	exec $xx >./w${i}.log 2>&1 & 
-	#echo  $xx >./w${i}.log 2>&1 & 
+
    else 
         #xx="fio --thread --rw=write  --norandommap --group_reporting --time_based  --randrepeat=0 --bs=1M --ioengine=sync  --runtime=30 --iodepth=32 --name=drive0 --size=100G  --filename=/data/disk"$i"/waue/fftest";
-        exec $xx | tee -a ./w${i}.log
-        #echo $xx | tee -a ./w${i}.log
+        echo "$xx | tee ./w${i}.log"
+        exec $xx | tee ./w${i}.log
+
    fi
 done
 
@@ -69,10 +71,12 @@ echo "Gen read : "
 for i in $(seq 0 $NUM);do
    xx="fio --thread -rw=read --readonly --norandommap --group_reporting --time_based  --randrepeat=0 --bs=1M --ioengine=sync  --runtime=30 --iodepth=32 --name=drive0 --size=100G  --filename=/data/disk"$i"/${USER}/fftest";
    if [ $i != "$NUM" ]; then
+	echo "$xx >./r${i}.log 2>&1 &"
         exec $xx >./r${i}.log 2>&1 &
    else
         #xx="fio --thread --rw=write  --norandommap --group_reporting --time_based  --randrepeat=0 --bs=1M --ioengine=sync  --runtime=30 --iodepth=32 --name=drive0 --size=100G  --filename=/data/disk"$i"/waue/fftest";
-        exec $xx | tee -a ./r${i}.log
+        echo "$xx | tee ./r${i}.log"
+        exec $xx | tee ./r${i}.log
    fi
 done
 
