@@ -3,7 +3,7 @@ bin=`dirname "$0"`
 bin=`cd "$bin"; pwd`
 cd $bin;
 
-NUM=$2
+NUM=7
 USER=$(whoami)
 
 
