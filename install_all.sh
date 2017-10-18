@@ -6,7 +6,7 @@
 #  nuttcp
 ## without inetd support
 sudo su -; 
-yum install -y python3 python-software-properties software-properties-common wget bzip2 make gcc;
+yum install -y python3 python-software-properties software-properties-common wget bzip2 make gcc iperf3;
 cd /tmp;
 wget http://nuttcp.net/nuttcp/nuttcp-8.1.4.tar.bz2;
 bzip2 -d nuttcp-8.1.4.tar.bz2;
@@ -39,7 +39,7 @@ pip3 install --upgrade matplotlib pip;
 ## ubuntu 
 #  nuttcp
 apt-get update;
-apt-get install -y python3 python-software-properties software-properties-common openbsd-inetd wget bzip2 make gcc;
+apt-get install -y python3 python-software-properties software-properties-common openbsd-inetd wget bzip2 make gcc iperf3;
 cd /tmp;
 wget http://nuttcp.net/nuttcp/nuttcp-8.1.4.tar.bz2;
 bzip2 -d nuttcp-8.1.4.tar.bz2;
