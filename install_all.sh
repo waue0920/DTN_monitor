@@ -5,7 +5,6 @@
 
 #  nuttcp
 ## without inetd support
-sudo su -; 
 yum install -y python3 python-software-properties software-properties-common wget bzip2 make gcc iperf3;
 cd /tmp;
 wget http://nuttcp.net/nuttcp/nuttcp-8.1.4.tar.bz2;
@@ -18,18 +17,27 @@ ln -sf  /opt/nuttcp-8.1.4/nuttcp-8.1.4 /usr/local/bin/nuttcp;
 wget http://nuttcp.net/nuttcp/beta/nuttscp-2.3; chmod 755 nuttscp-2.3;cp nuttscp-2.3 /usr/local/bin/nuttscp;
 ln -sf /opt/nuttcp-8.1.4 /opt/nuttcp;
 mkdir /opt/nuttcp_workspace;
-sed -i '365i  nuttcp          5000/tcp \nnuttcp-data     5001/tcp \nnuttcp6         5000/tcp \nnuttcp6-data    5001/tcp' /etc/services;
-/usr/local/bin/nuttcp -S;
 
 
 #  dtn_monitor
-sudo su - ;
+
+## install python34 for centos6 or centos7 if needed
+#yum install -y epel-release
+#yum install -y python34
+#yum install -y python34-setuptools
+#easy_install-3.4 pip
+#pip3 install virtualenv
+
+
+## install jupyterhub
 yum update;
-yum install https://kojipkgs.fedoraproject.org//packages/http-parser/2.7.1/3.el7/x86_64/http-parser-2.7.1-3.el7.x86_64.rpm ; # to fix node6js
-yum -y install python-pip ansible git  python-dev libzmq3-dev npm nodejs-legacy  pciutils libfreetype6-dev python34-pip python34-devel ;
+yum install https://kojipkgs.fedoraproject.org//packages/http-parser/2.7.1/3.el7/x86_64/http-parser-2.7.1-3.el7.x86_64.rpm ; # to fix nodejs
+yum -y install python-pip ansible git  python34-devel libzmq3-dev npm nodejs-legacy  pciutils libfreetype6-dev python34-pip python34-devel ;
 npm install -g configurable-http-proxy;
 pip3 install jupyterhub notebook paramiko psutil numpy pymongo matplotlib netifaces;
-pip3 install --upgrade matplotlib pip;
+pip3 install --upgrade pip;
+
+
 
 ## if jupyterhub conflict with SELinux
 # echo "c.PAMAuthenticator.open_sessions = False" >> ~/jupyterhub_config.py
