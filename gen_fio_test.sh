@@ -4,8 +4,8 @@ bin=`cd "$bin"; pwd`
 cd $bin;
 
 NUM=7
-USER=$(whoami)
-
+#USER=$(whoami)
+USER=sc17
 
 function p_mkdir(){
 echo "Gen testDIR (!!! run it by sudoer !!!)"
