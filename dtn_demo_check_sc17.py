@@ -29,7 +29,7 @@ import socket
 ### Using subprocess.Popen(..) to get the execution result
 def return_command(cmd):
     #  return execution result as output -> str
-    process = subprocess.Popen([cmd], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    process = subprocess.Popen([cmd], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=1)
     return process.stdout.read().decode('utf8')
 
 def check_command(cmd):
@@ -40,30 +40,38 @@ def check_command(cmd):
 def checkFirewall():
     # check iptables is existed, if without iptables, pass the check
     if shutil.which("iptables") is None:
-        return True
+        return 1
 
     ret = return_command("head -n 1 /etc/os-release")
     # check Centos or Ubuntu, only Centos iptables filter 8000 ..
     # if re.search("CentOS Linux", ret) == None: # easily failed
     if "CentOS" in ret :
         # if Centos , check the rule for opening 8000 port for jupyter
-        print("is centos, check iptables")
         ret = return_command("iptables -nvL |grep 8000 |wc -l")
         if int(ret) < 1:
-            return False
-    return True
+            return 0
+    return 1
 
 
 def checkVlan():
     vlan63 = "192.168.63.59"
     vlan61 = "192.168.61.57"
     # check vlan 61 and 63
-    if int(check_command("ping -c 1 " + vlan63)) != 0:
+    if int(check_command("ping -c 1 " + vlan63 + ">/dev/null")) != 0:
         # vlan 63 can't connect, check 61
-        if int(check_command("ping -c 1 " + vlan61)) != 0:
-            # neither 61 nor 63 is failed to ping, return false
-            return False
-    return True
+        if int(check_command("ping -c 1 " + vlan61 + ">/dev/null")) != 0:
+            # neither 61 nor 63 is failed to ping, return 0
+            return 0
+        else :
+            return 61
+    else :
+        # vlan 63 ok , check 61
+        if int(check_command("ping -c 1 " + vlan61 + ">/dev/null")) != 0:
+            # vlan 63 ok, check 61 failed
+            return 63
+        else:
+            # both 61 nor 63 is ok to ping
+            return 6163
 
 
 def checkJupyter():
@@ -71,24 +79,25 @@ def checkJupyter():
     # check the jupyter port is open, because system reboot will reset iptables rules
     ret = sock.connect_ex(('0.0.0.0', 8000))
     if ret != 0:
-        return False
-    return True
+        return 0
+    return 1
 
 
 def checkNvme():
-    ret = return_command("df |grep nvme |wc -l ")
-    if int(ret) < 8:
-        return False
-    return True
+    ret = int(return_command("df |grep nvme |wc -l "))
+    if type(ret) == int :
+        return int(ret)
+    else :
+        return 0
 
 
 def checkFileExist():
  ### this will occur file not found exection
  #   ret = return_command("ls /data/disk*/sc17/fftest | wc -l ")
  #   if int(ret) < 8:
- #       return False
- #   return True
-
+ #       return 0
+ #   return 1
+    count=0
     dirlist = [
         "/data/disk0/sc17/fftest",
         "/data/disk1/sc17/fftest",
@@ -101,10 +110,12 @@ def checkFileExist():
     ]
     for fd in dirlist:
         if os.access(fd, os.R_OK) is False:
-            return False
-    return True
+            continue
+        count+=1
+    return count
 
 def checkDirPermission():
+    count=0
     dirlist = [
         "/data/disk0/sc17/",
         "/data/disk1/sc17/",
@@ -117,20 +128,21 @@ def checkDirPermission():
     ]
     for fd in dirlist:
         if os.access(fd, os.W_OK) is False:
-            return False
-    return True
+            continue
+        count+=1
+    return count
 
 
 checklist = {}
 
 
 # checklist = {
-#    'firewall_check': True,
-#    'vlan_check': True,
-#    'jupyter_check': True,
-#    'nvme_check': True,
-#    'directory_check': True,
-#    'permission_check': True,
+#    'firewall_check': 1,
+#    'vlan_check': 1,
+#    'jupyter_check': 1,
+#    'nvme_check': 1,
+#    'directory_check': 1,
+#    'permission_check': 1,
 # }
 
 
@@ -147,14 +159,16 @@ def main():
     checklist["nvme_check"] = checkNvme()
     checklist["testfile_check"] = checkFileExist()
     checklist["permission_check"] = checkDirPermission()
-    json_str = json.dumps(checklist)
-    pprint.pprint(json_str)
+    json_str = json.dumps(checklist,indent=4)
+    print(json_str)
+    with open("./dtn_demo_check_sc17.json","w") as f :
+        f.write(json_str)
+
 
 
 if __name__ == "__main__":
-    if checkSudoer() is not True :
-        print("You should run this in sudo priviledge !")
-        print("exit 1")
+    if checkSudoer() is False:
+        print("{msg=\"You should run this in sudo priviledge !\"}")
         exit(1)
     main()
 
