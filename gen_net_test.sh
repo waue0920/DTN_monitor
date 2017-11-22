@@ -23,7 +23,7 @@ else
 fi
 
 for i in $(seq 1 8) ;do 
-         xx="iperf3 -w $size -Z -t 10 -c $server -p 5300${i}" 
+         xx="iperf3 -w $size -Z -t 10 -f g  -c $server -p 5300${i}" 
          exec $xx >./logs/${server}_a${i}.log 2>&1 &
 done
 
